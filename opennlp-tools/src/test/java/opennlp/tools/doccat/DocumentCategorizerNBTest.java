@@ -33,7 +33,7 @@ import opennlp.tools.util.TrainingParameters;
 public class DocumentCategorizerNBTest {
 
   @Test
-  public void testSimpleTraining() throws IOException {
+  public void testSimpleTraining() throws IOException, InterruptedException {
 
     ObjectStream<DocumentSample> samples = ObjectStreamUtils.createObjectStream(
         new DocumentSample("1", new String[]{"a", "b", "c"}),

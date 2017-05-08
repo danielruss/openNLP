@@ -49,7 +49,7 @@ public class MaxentPrepAttachTest {
   }
   
   @Test
-  public void testMaxentOnPrepAttachData() throws IOException {
+  public void testMaxentOnPrepAttachData() throws IOException, InterruptedException {
     testDataIndexer.index(PrepAttachDataUtil.createTrainingStream());
     // this shows why the GISTrainer should be a AbstractEventTrainer.
     // TODO: make sure that the trainingParameter cutoff and the 
@@ -62,7 +62,7 @@ public class MaxentPrepAttachTest {
   }
 
   @Test
-  public void testMaxentOnPrepAttachData2Threads() throws IOException {
+  public void testMaxentOnPrepAttachData2Threads() throws IOException, InterruptedException {
     testDataIndexer.index(PrepAttachDataUtil.createTrainingStream());
     AbstractModel model =
         new GISTrainer(true).trainModel(100,
@@ -72,7 +72,7 @@ public class MaxentPrepAttachTest {
   }
 
   @Test
-  public void testMaxentOnPrepAttachDataWithParams() throws IOException {
+  public void testMaxentOnPrepAttachDataWithParams() throws IOException, InterruptedException {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, GISTrainer.MAXENT_VALUE);
@@ -87,7 +87,7 @@ public class MaxentPrepAttachTest {
   }
 
   @Test
-  public void testMaxentOnPrepAttachDataWithParamsDefault() throws IOException {
+  public void testMaxentOnPrepAttachDataWithParamsDefault() throws IOException, InterruptedException {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, GISTrainer.MAXENT_VALUE);

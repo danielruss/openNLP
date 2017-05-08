@@ -61,7 +61,7 @@ public class GISIndexingTest {
    * Test the GIS.trainModel(ObjectStream<Event> eventStream) method
    */
   @Test
-  public void testGISTrainSignature1() throws IOException {
+  public void testGISTrainSignature1() throws IOException, InterruptedException {
     try (ObjectStream<Event> eventStream = createEventStream()) {
       TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
       params.put(AbstractTrainer.CUTOFF_PARAM, 1);
@@ -76,7 +76,7 @@ public class GISIndexingTest {
    * Test the GIS.trainModel(ObjectStream<Event> eventStream,boolean smoothing) method
    */
   @Test
-  public void testGISTrainSignature2() throws IOException {
+  public void testGISTrainSignature2() throws IOException, InterruptedException {
     try (ObjectStream<Event> eventStream = createEventStream()) {
       TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
       params.put(AbstractTrainer.CUTOFF_PARAM, 1);
@@ -91,7 +91,7 @@ public class GISIndexingTest {
    * Test the GIS.trainModel(ObjectStream<Event> eventStream, int iterations, int cutoff) method
    */
   @Test
-  public void testGISTrainSignature3() throws IOException {
+  public void testGISTrainSignature3() throws IOException, InterruptedException {
     try (ObjectStream<Event> eventStream = createEventStream()) {
       TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
@@ -108,7 +108,7 @@ public class GISIndexingTest {
    * Test the GIS.trainModel(ObjectStream<Event> eventStream, int iterations, int cutoff, double sigma) method
    */
   @Test
-  public void testGISTrainSignature4() throws IOException {
+  public void testGISTrainSignature4() throws IOException, InterruptedException {
     try (ObjectStream<Event> eventStream = createEventStream()) {
       TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
       params.put(AbstractTrainer.ITERATIONS_PARAM, 10);
@@ -125,7 +125,7 @@ public class GISIndexingTest {
    * boolean smoothing, boolean printMessagesWhileTraining)) method
    */
   @Test
-  public void testGISTrainSignature5() throws IOException {
+  public void testGISTrainSignature5() throws IOException, InterruptedException {
     try (ObjectStream<Event> eventStream = createEventStream()) {
       TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 

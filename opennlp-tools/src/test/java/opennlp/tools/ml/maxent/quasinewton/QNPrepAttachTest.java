@@ -36,7 +36,7 @@ import opennlp.tools.util.TrainingParameters;
 public class QNPrepAttachTest {
 
   @Test
-  public void testQNOnPrepAttachData() throws IOException {
+  public void testQNOnPrepAttachData() throws IOException, InterruptedException  {
     DataIndexer indexer = new TwoPassDataIndexer();
     TrainingParameters indexingParameters = new TrainingParameters();
     indexingParameters.put(AbstractTrainer.CUTOFF_PARAM, 1);
@@ -50,7 +50,7 @@ public class QNPrepAttachTest {
   }
 
   @Test
-  public void testQNOnPrepAttachDataWithParamsDefault() throws IOException {
+  public void testQNOnPrepAttachDataWithParamsDefault() throws IOException, InterruptedException  {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, QNTrainer.MAXENT_QN_VALUE);
@@ -62,7 +62,7 @@ public class QNPrepAttachTest {
   }
 
   @Test
-  public void testQNOnPrepAttachDataWithElasticNetParams() throws IOException {
+  public void testQNOnPrepAttachDataWithElasticNetParams() throws IOException, InterruptedException  {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, QNTrainer.MAXENT_QN_VALUE);
@@ -79,7 +79,7 @@ public class QNPrepAttachTest {
   }
 
   @Test
-  public void testQNOnPrepAttachDataWithL1Params() throws IOException {
+  public void testQNOnPrepAttachDataWithL1Params() throws IOException, InterruptedException  {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, QNTrainer.MAXENT_QN_VALUE);
@@ -96,7 +96,7 @@ public class QNPrepAttachTest {
   }
 
   @Test
-  public void testQNOnPrepAttachDataWithL2Params() throws IOException {
+  public void testQNOnPrepAttachDataWithL2Params() throws IOException, InterruptedException  {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, QNTrainer.MAXENT_QN_VALUE);
@@ -113,7 +113,7 @@ public class QNPrepAttachTest {
   }
 
   @Test
-  public void testQNOnPrepAttachDataInParallel() throws IOException {
+  public void testQNOnPrepAttachDataInParallel() throws IOException, InterruptedException  {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, QNTrainer.MAXENT_QN_VALUE);

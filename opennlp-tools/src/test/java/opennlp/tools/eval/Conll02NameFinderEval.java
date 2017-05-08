@@ -69,7 +69,7 @@ public class Conll02NameFinderEval {
   }
 
   private static TokenNameFinderModel train(File trainFile, LANGUAGE lang,
-      TrainingParameters params, int types) throws IOException {
+      TrainingParameters params, int types) throws IOException, InterruptedException {
 
     ObjectStream<NameSample> samples = new Conll02NameSampleStream(
         lang,new MarkableFileInputStreamFactory(trainFile), types);
@@ -91,7 +91,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchPersonPerceptron() throws IOException {
+  public void evalDutchPersonPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -105,7 +105,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchPersonMaxentGis() throws IOException {
+  public void evalDutchPersonMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -119,7 +119,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchPersonMaxentQn() throws IOException {
+  public void evalDutchPersonMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -133,7 +133,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchOrganizationPerceptron() throws IOException {
+  public void evalDutchOrganizationPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -147,7 +147,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchOrganizationMaxentGis() throws IOException {
+  public void evalDutchOrganizationMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -161,7 +161,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchOrganizationMaxentQn() throws IOException {
+  public void evalDutchOrganizationMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -175,7 +175,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchLocationPerceptron() throws IOException {
+  public void evalDutchLocationPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -189,7 +189,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchLocationMaxentGis() throws IOException {
+  public void evalDutchLocationMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -203,7 +203,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchLocationMaxentQn() throws IOException {
+  public void evalDutchLocationMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -217,7 +217,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchMiscPerceptron() throws IOException {
+  public void evalDutchMiscPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -231,7 +231,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchMiscMaxentGis() throws IOException {
+  public void evalDutchMiscMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -245,7 +245,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchMiscMaxentQn() throws IOException {
+  public void evalDutchMiscMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     TokenNameFinderModel maxentModel = train(dutchTrainingFile, LANGUAGE.NL, params,
@@ -259,7 +259,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchCombinedPerceptron() throws IOException {
+  public void evalDutchCombinedPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     int combinedType = Conll02NameSampleStream.GENERATE_PERSON_ENTITIES
@@ -276,7 +276,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchCombinedMaxentGis() throws IOException {
+  public void evalDutchCombinedMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     int combinedType = Conll02NameSampleStream.GENERATE_PERSON_ENTITIES
@@ -293,7 +293,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalDutchCombinedMaxentQn() throws IOException {
+  public void evalDutchCombinedMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     int combinedType = Conll02NameSampleStream.GENERATE_PERSON_ENTITIES
@@ -310,7 +310,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishPersonPerceptron() throws IOException {
+  public void evalSpanishPersonPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -324,7 +324,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishPersonMaxentGis() throws IOException {
+  public void evalSpanishPersonMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -339,7 +339,7 @@ public class Conll02NameFinderEval {
 
 
   @Test
-  public void evalSpanishPersonMaxentQn() throws IOException {
+  public void evalSpanishPersonMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -353,7 +353,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishOrganizationPerceptron() throws IOException {
+  public void evalSpanishOrganizationPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -367,7 +367,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishOrganizationMaxentGis() throws IOException {
+  public void evalSpanishOrganizationMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -381,7 +381,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishOrganizationMaxentQn() throws IOException {
+  public void evalSpanishOrganizationMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -395,7 +395,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishLocationPerceptron() throws IOException {
+  public void evalSpanishLocationPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -409,7 +409,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishLocationMaxentGis() throws IOException {
+  public void evalSpanishLocationMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -423,7 +423,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishLocationMaxentQn() throws IOException {
+  public void evalSpanishLocationMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -437,7 +437,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishMiscPerceptron() throws IOException {
+  public void evalSpanishMiscPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -451,7 +451,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishMiscMaxentGis() throws IOException {
+  public void evalSpanishMiscMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -465,7 +465,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishMiscMaxentQn() throws IOException {
+  public void evalSpanishMiscMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     TokenNameFinderModel maxentModel = train(spanishTrainingFile, LANGUAGE.ES, params,
@@ -479,7 +479,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishCombinedPerceptron() throws IOException {
+  public void evalSpanishCombinedPerceptron() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createPerceptronParams();
 
     int combinedType = Conll02NameSampleStream.GENERATE_PERSON_ENTITIES
@@ -496,7 +496,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishCombinedMaxentGis() throws IOException {
+  public void evalSpanishCombinedMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     int combinedType = Conll02NameSampleStream.GENERATE_PERSON_ENTITIES
@@ -513,7 +513,7 @@ public class Conll02NameFinderEval {
   }
 
   @Test
-  public void evalSpanishCombinedMaxentQn() throws IOException {
+  public void evalSpanishCombinedMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     int combinedType = Conll02NameSampleStream.GENERATE_PERSON_ENTITIES

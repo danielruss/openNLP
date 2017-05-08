@@ -46,4 +46,8 @@ public class MockEventTrainer implements EventTrainer {
   public void init(TrainingParameters trainingParams,
       Map<String, String> reportMap) {
   }
+  
+  @Override
+  public void interrupt() {
+  }
 }

@@ -41,7 +41,7 @@ import opennlp.tools.util.model.ModelUtil;
 
 public class OntoNotes4NameFinderEval {
 
-  private static ObjectStream<NameSample> createNameSampleStream() throws IOException {
+  private static ObjectStream<NameSample> createNameSampleStream() throws IOException, InterruptedException  {
     ObjectStream<File> documentStream = new DirectorySampleStream(new File(
         EvalUtil.getOpennlpDataDir(), "ontonotes4/data/files/data/english"),
         file -> {
@@ -57,7 +57,7 @@ public class OntoNotes4NameFinderEval {
   }
 
   private static void crossEval(TrainingParameters params, String type, double expectedScore)
-      throws IOException {
+      throws IOException, InterruptedException  {
     try (ObjectStream<NameSample> samples = createNameSampleStream()) {
 
       TokenNameFinderCrossValidator cv = new TokenNameFinderCrossValidator("en", null,
@@ -78,7 +78,7 @@ public class OntoNotes4NameFinderEval {
   }
 
   @BeforeClass
-  public static void verifyTrainingData() throws IOException {
+  public static void verifyTrainingData() throws IOException, InterruptedException  {
     MessageDigest digest;
     try {
       digest = MessageDigest.getInstance("MD5");
@@ -98,21 +98,21 @@ public class OntoNotes4NameFinderEval {
   }
 
   @Test
-  public void evalEnglishPersonNameFinder() throws IOException {
+  public void evalEnglishPersonNameFinder() throws IOException, InterruptedException  {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
     params.put("Threads", "4");
     crossEval(params, "person", 0.822014580552418d);
   }
 
   @Test
-  public void evalEnglishDateNameFinder() throws IOException {
+  public void evalEnglishDateNameFinder() throws IOException, InterruptedException  {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
     params.put("Threads", "4");
     crossEval(params, "date", 0.8043873255040994d);
   }
 
   @Test
-  public void evalAllTypesNameFinder() throws IOException {
+  public void evalAllTypesNameFinder() throws IOException, InterruptedException  {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
     params.put("Threads", "4");
     crossEval(params, null, 0.8014054850253551d);

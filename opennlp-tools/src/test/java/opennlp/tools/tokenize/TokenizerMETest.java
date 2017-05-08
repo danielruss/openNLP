@@ -42,7 +42,7 @@ import opennlp.tools.util.TrainingParameters;
 public class TokenizerMETest {
 
   @Test
-  public void testTokenizerSimpleModel() throws IOException {
+  public void testTokenizerSimpleModel() throws IOException, InterruptedException  {
 
     TokenizerModel model = TokenizerTestUtil.createSimpleMaxentTokenModel();
 
@@ -56,7 +56,7 @@ public class TokenizerMETest {
   }
 
   @Test
-  public void testTokenizer() throws IOException {
+  public void testTokenizer() throws IOException, InterruptedException  {
     TokenizerModel model = TokenizerTestUtil.createMaxentTokenModel();
 
     TokenizerME tokenizer = new TokenizerME(model);
@@ -75,7 +75,7 @@ public class TokenizerMETest {
   }
   
   @Test(expected = InsufficientTrainingDataException.class)
-  public void testInsufficientData() throws IOException {
+  public void testInsufficientData() throws IOException, InterruptedException  {
 
     InputStreamFactory trainDataIn = new ResourceAsStreamFactory(
         TokenizerModel.class, "/opennlp/tools/tokenize/token-insufficient.train");

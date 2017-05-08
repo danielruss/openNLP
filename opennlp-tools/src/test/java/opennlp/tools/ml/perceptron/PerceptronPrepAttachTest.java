@@ -56,7 +56,7 @@ public class PerceptronPrepAttachTest {
   }
 
   @Test
-  public void testPerceptronOnPrepAttachDataWithSkippedAveraging() throws IOException {
+  public void testPerceptronOnPrepAttachDataWithSkippedAveraging() throws IOException, InterruptedException  {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, PerceptronTrainer.PERCEPTRON_VALUE);
@@ -69,7 +69,7 @@ public class PerceptronPrepAttachTest {
   }
 
   @Test
-  public void testPerceptronOnPrepAttachDataWithTolerance() throws IOException {
+  public void testPerceptronOnPrepAttachDataWithTolerance() throws IOException, InterruptedException  {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, PerceptronTrainer.PERCEPTRON_VALUE);
@@ -83,7 +83,7 @@ public class PerceptronPrepAttachTest {
   }
 
   @Test
-  public void testPerceptronOnPrepAttachDataWithStepSizeDecrease() throws IOException {
+  public void testPerceptronOnPrepAttachDataWithStepSizeDecrease() throws IOException, InterruptedException  {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, PerceptronTrainer.PERCEPTRON_VALUE);
@@ -97,7 +97,7 @@ public class PerceptronPrepAttachTest {
   }
 
   @Test
-  public void testModelSerialization() throws IOException {
+  public void testModelSerialization() throws IOException, InterruptedException  {
 
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, PerceptronTrainer.PERCEPTRON_VALUE);
@@ -122,7 +122,7 @@ public class PerceptronPrepAttachTest {
   }
 
   @Test
-  public void testModelEquals() throws IOException {
+  public void testModelEquals() throws IOException, InterruptedException  {
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, PerceptronTrainer.PERCEPTRON_VALUE);
     trainParams.put(AbstractTrainer.CUTOFF_PARAM, 1);
@@ -137,7 +137,7 @@ public class PerceptronPrepAttachTest {
   }
   
   @Test
-  public void verifyReportMap() throws IOException {
+  public void verifyReportMap() throws IOException, InterruptedException  {
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, PerceptronTrainer.PERCEPTRON_VALUE);
     trainParams.put(AbstractTrainer.CUTOFF_PARAM, 1);

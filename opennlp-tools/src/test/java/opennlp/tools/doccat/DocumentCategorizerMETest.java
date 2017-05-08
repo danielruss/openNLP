@@ -32,7 +32,7 @@ import opennlp.tools.util.TrainingParameters;
 public class DocumentCategorizerMETest {
 
   @Test
-  public void testSimpleTraining() throws IOException {
+  public void testSimpleTraining() throws IOException, InterruptedException {
 
     ObjectStream<DocumentSample> samples = ObjectStreamUtils.createObjectStream(
         new DocumentSample("1", new String[]{"a", "b", "c"}),
@@ -64,7 +64,7 @@ public class DocumentCategorizerMETest {
   }
   
   @Test(expected = InsufficientTrainingDataException.class)
-  public void insufficientTestData() throws IOException {
+  public void insufficientTestData() throws IOException, InterruptedException {
 
     ObjectStream<DocumentSample> samples = ObjectStreamUtils.createObjectStream(
         new DocumentSample("1", new String[]{"a", "b", "c"}));

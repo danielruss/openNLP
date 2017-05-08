@@ -61,7 +61,7 @@ public class LemmatizerMETest {
       "the", "plane", "." };
 
   @Before
-  public void startup() throws IOException {
+  public void startup() throws IOException, InterruptedException {
     // train the lemmatizer
 
     ObjectStream<LemmaSample> sampleStream = new LemmaSampleStream(
@@ -87,7 +87,7 @@ public class LemmatizerMETest {
   }
   
   @Test(expected = InsufficientTrainingDataException.class)
-  public void testInsufficientData() throws IOException {
+  public void testInsufficientData() throws IOException, InterruptedException {
  
     ObjectStream<LemmaSample> sampleStream = new LemmaSampleStream(
         new PlainTextByLineStream(new MockInputStreamFactory(

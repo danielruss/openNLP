@@ -62,7 +62,7 @@ public class OntoNotes4ParserEval {
   }
 
   private static void crossEval(TrainingParameters params, HeadRules rules, double expectedScore)
-      throws IOException {
+      throws IOException, InterruptedException  {
     try (ObjectStream<Parse> samples = createParseSampleStream()) {
       ParserCrossValidator cv = new ParserCrossValidator("en", params, rules, ParserType.CHUNKING);
       cv.evaluate(samples, 5);
@@ -92,7 +92,7 @@ public class OntoNotes4ParserEval {
   }
 
   @Test
-  public void evalEnglishMaxent() throws IOException {
+  public void evalEnglishMaxent() throws IOException, InterruptedException  {
 
     HeadRules headRules;
     try (InputStream headRulesIn =

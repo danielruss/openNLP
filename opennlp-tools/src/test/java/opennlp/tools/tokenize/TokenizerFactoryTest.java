@@ -51,7 +51,7 @@ public class TokenizerFactoryTest {
   }
 
   private static TokenizerModel train(TokenizerFactory factory)
-      throws IOException {
+      throws IOException, InterruptedException  {
     return TokenizerME.train(createSampleStream(), factory, TrainingParameters.defaultParams());
   }
 
@@ -63,7 +63,7 @@ public class TokenizerFactoryTest {
   }
 
   @Test
-  public void testDefault() throws IOException {
+  public void testDefault() throws IOException, InterruptedException  {
 
     Dictionary dic = loadAbbDictionary();
     final String lang = "es";
@@ -96,7 +96,7 @@ public class TokenizerFactoryTest {
   }
 
   @Test
-  public void testNullDict() throws IOException {
+  public void testNullDict() throws IOException, InterruptedException  {
 
     Dictionary dic = null;
     final String lang = "es";
@@ -129,7 +129,7 @@ public class TokenizerFactoryTest {
   }
 
   @Test
-  public void testCustomPatternAndAlphaOpt() throws IOException {
+  public void testCustomPatternAndAlphaOpt() throws IOException, InterruptedException  {
 
     Dictionary dic = null;
     final String lang = "es";
@@ -163,7 +163,7 @@ public class TokenizerFactoryTest {
   }
 
   @Test
-  public void testDummyFactory() throws IOException {
+  public void testDummyFactory() throws IOException, InterruptedException  {
 
     Dictionary dic = loadAbbDictionary();
     final String lang = "es";

@@ -37,7 +37,7 @@ import opennlp.tools.util.TrainingParameters;
 public class SentenceDetectorMETest {
 
   @Test
-  public void testSentenceDetector() throws IOException {
+  public void testSentenceDetector() throws IOException, InterruptedException  {
 
     InputStreamFactory in = new ResourceAsStreamFactory(getClass(),
         "/opennlp/tools/sentdetect/Sentences.txt");
@@ -137,7 +137,7 @@ public class SentenceDetectorMETest {
   }
   
   @Test(expected = InsufficientTrainingDataException.class)
-  public void testInsufficientData() throws IOException {
+  public void testInsufficientData() throws IOException, InterruptedException  {
 
     InputStreamFactory in = new ResourceAsStreamFactory(getClass(),
         "/opennlp/tools/sentdetect/SentencesInsufficient.txt");

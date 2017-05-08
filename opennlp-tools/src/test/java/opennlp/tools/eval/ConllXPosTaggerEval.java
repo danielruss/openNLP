@@ -56,7 +56,7 @@ import opennlp.tools.util.model.ModelUtil;
 public class ConllXPosTaggerEval {
 
   private static POSModel train(File trainFile, String lang,
-                                TrainingParameters params) throws IOException {
+                                TrainingParameters params) throws IOException, InterruptedException {
 
     ObjectStream<POSSample> samples =
         new ConllXPOSSampleStream(new MarkableFileInputStreamFactory(trainFile), Charset.forName("UTF-8"));
@@ -77,7 +77,7 @@ public class ConllXPosTaggerEval {
   }
 
   @Test
-  public void evalDanishMaxentGis() throws IOException {
+  public void evalDanishMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     POSModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),
@@ -88,7 +88,7 @@ public class ConllXPosTaggerEval {
   }
 
   @Test
-  public void evalDanishMaxentQn() throws IOException {
+  public void evalDanishMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     POSModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),
@@ -99,7 +99,7 @@ public class ConllXPosTaggerEval {
   }
 
   @Test
-  public void evalDutchMaxentGis() throws IOException {
+  public void evalDutchMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     POSModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),
@@ -110,7 +110,7 @@ public class ConllXPosTaggerEval {
   }
 
   @Test
-  public void evalDutchMaxentQn() throws IOException {
+  public void evalDutchMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     POSModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),
@@ -121,7 +121,7 @@ public class ConllXPosTaggerEval {
   }
 
   @Test
-  public void evalPortugueseMaxentGis() throws IOException {
+  public void evalPortugueseMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     POSModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),
@@ -132,7 +132,7 @@ public class ConllXPosTaggerEval {
   }
 
   @Test
-  public void evalPortugueseMaxentQn() throws IOException {
+  public void evalPortugueseMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     POSModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),
@@ -143,7 +143,7 @@ public class ConllXPosTaggerEval {
   }
 
   @Test
-  public void evalSwedishMaxentGis() throws IOException {
+  public void evalSwedishMaxentGis() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
 
     POSModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),
@@ -154,7 +154,7 @@ public class ConllXPosTaggerEval {
   }
 
   @Test
-  public void evalSwedishMaxentQn() throws IOException {
+  public void evalSwedishMaxentQn() throws IOException, InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
 
     POSModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),

@@ -45,7 +45,7 @@ import opennlp.tools.util.model.ModelUtil;
 public class Conll00ChunkerEval {
 
   private static ChunkerModel train(File trainFile, TrainingParameters params)
-      throws IOException {
+      throws IOException,InterruptedException {
 
     ObjectStream<ChunkSample> samples = new ChunkSampleStream(
         new PlainTextByLineStream(
@@ -67,7 +67,7 @@ public class Conll00ChunkerEval {
   }
 
   @Test
-  public void evalEnglishPerceptron() throws IOException {
+  public void evalEnglishPerceptron() throws IOException,InterruptedException {
     ChunkerModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),
         "conll00/train.txt"), EvalUtil.createPerceptronParams());
 
@@ -77,7 +77,7 @@ public class Conll00ChunkerEval {
   }
 
   @Test
-  public void evalEnglishMaxentGis() throws IOException {
+  public void evalEnglishMaxentGis() throws IOException,InterruptedException {
     ChunkerModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),
         "conll00/train.txt"), ModelUtil.createDefaultTrainingParameters());
 
@@ -88,7 +88,7 @@ public class Conll00ChunkerEval {
 
   // Note: Don't try to run this on your MacBook
   @Test
-  public void evalEnglishMaxentQn() throws IOException {
+  public void evalEnglishMaxentQn() throws IOException,InterruptedException {
     TrainingParameters params = EvalUtil.createMaxentQnParams();
     params.put("Threads", 4);
     ChunkerModel maxentModel = train(new File(EvalUtil.getOpennlpDataDir(),

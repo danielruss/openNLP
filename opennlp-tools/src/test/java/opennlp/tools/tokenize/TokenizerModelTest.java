@@ -29,7 +29,7 @@ import org.junit.Test;
 public class TokenizerModelTest {
 
   @Test
-  public void testSentenceModel() throws IOException {
+  public void testSentenceModel() throws IOException, InterruptedException  {
 
     TokenizerModel model = TokenizerTestUtil.createSimpleMaxentTokenModel();
 

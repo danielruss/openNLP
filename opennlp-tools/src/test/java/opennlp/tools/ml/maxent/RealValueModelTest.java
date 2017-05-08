@@ -44,7 +44,7 @@ public class RealValueModelTest {
   }
   
   @Test
-  public void testRealValuedWeightsVsRepeatWeighting() throws IOException {
+  public void testRealValuedWeightsVsRepeatWeighting() throws IOException, InterruptedException  {
     GISModel realModel;
     GISTrainer gisTrainer = new GISTrainer();
     try (RealValueFileEventStream rvfes1 = new RealValueFileEventStream(

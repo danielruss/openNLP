@@ -59,7 +59,7 @@ public class NaiveBayesPrepAttachTest {
   }
 
   @Test
-  public void testNaiveBayesOnPrepAttachDataUsingTrainUtil() throws IOException {
+  public void testNaiveBayesOnPrepAttachDataUsingTrainUtil() throws IOException, InterruptedException {
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, NaiveBayesTrainer.NAIVE_BAYES_VALUE);
     trainParams.put(AbstractTrainer.CUTOFF_PARAM, 1);
@@ -71,7 +71,7 @@ public class NaiveBayesPrepAttachTest {
   }
 
   @Test
-  public void testNaiveBayesOnPrepAttachDataUsingTrainUtilWithCutoff5() throws IOException {
+  public void testNaiveBayesOnPrepAttachDataUsingTrainUtilWithCutoff5() throws IOException, InterruptedException {
     TrainingParameters trainParams = new TrainingParameters();
     trainParams.put(AbstractTrainer.ALGORITHM_PARAM, NaiveBayesTrainer.NAIVE_BAYES_VALUE);
     trainParams.put(AbstractTrainer.CUTOFF_PARAM, 5);

@@ -48,7 +48,7 @@ public class POSTaggerMETest {
    *
    * @return {@link POSModel}
    */
-  static POSModel trainPOSModel(ModelType type) throws IOException {
+  static POSModel trainPOSModel(ModelType type) throws IOException, InterruptedException  {
     TrainingParameters params = new TrainingParameters();
     params.put(TrainingParameters.ALGORITHM_PARAM, type.toString());
     params.put(TrainingParameters.ITERATIONS_PARAM, 100);
@@ -59,7 +59,7 @@ public class POSTaggerMETest {
   }
 
   @Test
-  public void testPOSTagger() throws IOException {
+  public void testPOSTagger() throws IOException, InterruptedException  {
     POSModel posModel = trainPOSModel(ModelType.MAXENT);
 
     POSTagger tagger = new POSTaggerME(posModel);
@@ -82,13 +82,13 @@ public class POSTaggerMETest {
   }
 
   @Test
-  public void testBuildNGramDictionary() throws IOException {
+  public void testBuildNGramDictionary() throws IOException, InterruptedException  {
     ObjectStream<POSSample> samples = createSampleStream();
     POSTaggerME.buildNGramDictionary(samples, 0);
   }
   
   @Test(expected = InsufficientTrainingDataException.class)
-  public void insufficientTestData() throws IOException {
+  public void insufficientTestData() throws IOException, InterruptedException  {
 
     InputStreamFactory in = new ResourceAsStreamFactory(POSTaggerMETest.class,
         "/opennlp/tools/postag/AnnotatedSentencesInsufficient.txt");

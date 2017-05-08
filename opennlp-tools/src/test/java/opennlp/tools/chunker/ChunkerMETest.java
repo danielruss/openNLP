@@ -65,7 +65,7 @@ public class ChunkerMETest {
       "I-NP", "O" };
 
   @Before
-  public void startup() throws IOException {
+  public void startup() throws IOException,InterruptedException {
     // train the chunker
 
     ResourceAsStreamFactory in = new ResourceAsStreamFactory(getClass(),
@@ -131,7 +131,7 @@ public class ChunkerMETest {
   }
   
   @Test(expected = InsufficientTrainingDataException.class)
-  public void testInsufficientData() throws IOException {
+  public void testInsufficientData() throws IOException,InterruptedException {
 
     ResourceAsStreamFactory in = new ResourceAsStreamFactory(getClass(),
         "/opennlp/tools/chunker/test-insufficient.txt");

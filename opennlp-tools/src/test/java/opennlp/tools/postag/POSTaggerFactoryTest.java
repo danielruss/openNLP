@@ -51,13 +51,13 @@ public class POSTaggerFactoryTest {
   }
 
   private static POSModel trainPOSModel(POSTaggerFactory factory)
-      throws IOException {
+      throws IOException, InterruptedException {
     return POSTaggerME.train("en", createSampleStream(),
         TrainingParameters.defaultParams(), factory);
   }
 
   @Test
-  public void testPOSTaggerWithCustomFactory() throws IOException {
+  public void testPOSTaggerWithCustomFactory() throws IOException, InterruptedException  {
     DummyPOSDictionary posDict = new DummyPOSDictionary(
         POSDictionary.create(POSDictionaryTest.class
             .getResourceAsStream("TagDictionaryCaseSensitive.xml")));
@@ -82,7 +82,7 @@ public class POSTaggerFactoryTest {
   }
 
   @Test
-  public void testPOSTaggerWithDefaultFactory() throws IOException {
+  public void testPOSTaggerWithDefaultFactory() throws IOException, InterruptedException  {
     POSDictionary posDict = POSDictionary.create(POSDictionaryTest.class
             .getResourceAsStream("TagDictionaryCaseSensitive.xml"));
     POSModel posModel = trainPOSModel(new POSTaggerFactory(null, null, posDict));

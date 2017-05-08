@@ -28,7 +28,7 @@ import opennlp.tools.util.model.ModelType;
 public class POSModelTest {
 
   @Test
-  public void testPOSModelSerializationMaxent() throws IOException {
+  public void testPOSModelSerializationMaxent() throws IOException, InterruptedException  {
     POSModel posModel = POSTaggerMETest.trainPOSModel(ModelType.MAXENT);
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -46,7 +46,7 @@ public class POSModelTest {
   }
 
   @Test
-  public void testPOSModelSerializationPerceptron() throws IOException {
+  public void testPOSModelSerializationPerceptron() throws IOException, InterruptedException  {
     POSModel posModel = POSTaggerMETest.trainPOSModel(ModelType.PERCEPTRON);
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();

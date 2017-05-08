@@ -44,18 +44,18 @@ public class DoccatFactoryTest {
     return new DocumentSampleStream(new PlainTextByLineStream(isf, "UTF-8"));
   }
 
-  private static DoccatModel train() throws IOException {
+  private static DoccatModel train() throws IOException,InterruptedException {
     return DocumentCategorizerME.train("x-unspecified", createSampleStream(),
         TrainingParameters.defaultParams(), new DoccatFactory());
   }
 
-  private static DoccatModel train(DoccatFactory factory) throws IOException {
+  private static DoccatModel train(DoccatFactory factory) throws IOException,InterruptedException {
     return DocumentCategorizerME.train("x-unspecified", createSampleStream(),
         TrainingParameters.defaultParams(), factory);
   }
 
   @Test
-  public void testDefault() throws IOException {
+  public void testDefault() throws IOException,InterruptedException {
     DoccatModel model = train();
 
     Assert.assertNotNull(model);
@@ -77,7 +77,7 @@ public class DoccatFactoryTest {
   }
 
   @Test
-  public void testCustom() throws IOException {
+  public void testCustom() throws IOException, InterruptedException {
     FeatureGenerator[] featureGenerators = { new BagOfWordsFeatureGenerator(),
         new NGramFeatureGenerator(), new NGramFeatureGenerator(2,3) };
 

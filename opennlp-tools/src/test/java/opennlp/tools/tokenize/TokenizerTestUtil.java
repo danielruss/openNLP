@@ -35,7 +35,7 @@ import opennlp.tools.util.TrainingParameters;
  */
 public class TokenizerTestUtil {
 
-  static TokenizerModel createSimpleMaxentTokenModel() throws IOException {
+  static TokenizerModel createSimpleMaxentTokenModel() throws IOException, InterruptedException  {
     List<TokenSample> samples = new ArrayList<>();
 
     samples.add(new TokenSample("year", new Span[]{new Span(0, 4)}));
@@ -61,7 +61,7 @@ public class TokenizerTestUtil {
       TokenizerFactory.create(null, "en", null, true, null), mlParams);
   }
 
-  static TokenizerModel createMaxentTokenModel() throws IOException {
+  static TokenizerModel createMaxentTokenModel() throws IOException, InterruptedException  {
 
     InputStreamFactory trainDataIn = new ResourceAsStreamFactory(
         TokenizerModel.class, "/opennlp/tools/tokenize/token.train");

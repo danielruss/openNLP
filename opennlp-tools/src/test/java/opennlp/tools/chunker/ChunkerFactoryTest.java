@@ -46,13 +46,13 @@ public class ChunkerFactoryTest {
   }
 
   private static ChunkerModel trainModel(ModelType type, ChunkerFactory factory)
-      throws IOException {
+      throws IOException,InterruptedException {
     return ChunkerME.train("en", createSampleStream(),
         TrainingParameters.defaultParams(), factory);
   }
 
   @Test
-  public void testDefaultFactory() throws IOException {
+  public void testDefaultFactory() throws IOException,InterruptedException {
 
     ChunkerModel model = trainModel(ModelType.MAXENT, new ChunkerFactory());
 
@@ -73,7 +73,7 @@ public class ChunkerFactoryTest {
 
 
   @Test
-  public void testDummyFactory() throws IOException {
+  public void testDummyFactory() throws IOException,InterruptedException {
 
     ChunkerModel model = trainModel(ModelType.MAXENT, new DummyChunkerFactory());
 

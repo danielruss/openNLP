@@ -59,7 +59,7 @@ public class OntoNotes4PosTaggerEval {
   }
 
   private static void crossEval(TrainingParameters params, double expectedScore)
-      throws IOException {
+      throws IOException, InterruptedException {
     try (ObjectStream<POSSample> samples = createPOSSampleStream()) {
       POSTaggerCrossValidator cv = new POSTaggerCrossValidator("en", params, new POSTaggerFactory());
       cv.evaluate(samples, 5);
@@ -88,7 +88,7 @@ public class OntoNotes4PosTaggerEval {
     }
   }
   @Test
-  public void evalEnglishMaxentTagger() throws IOException {
+  public void evalEnglishMaxentTagger() throws IOException, InterruptedException {
     TrainingParameters params = ModelUtil.createDefaultTrainingParameters();
     params.put("Threads", "4");
 

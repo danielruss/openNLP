@@ -44,7 +44,7 @@ import opennlp.tools.util.TrainingParameters;
 public class TokenNameFinderToolTest {
 
   @Test
-  public void run() throws IOException {
+  public void run() throws IOException, InterruptedException  {
 
     File model1 = trainModel();
 
@@ -94,7 +94,7 @@ public class TokenNameFinderToolTest {
     
   }
   
-  private File trainModel() throws IOException {
+  private File trainModel() throws IOException, InterruptedException  {
 
     ObjectStream<String> lineStream =
         new PlainTextByLineStream(new MockInputStreamFactory(

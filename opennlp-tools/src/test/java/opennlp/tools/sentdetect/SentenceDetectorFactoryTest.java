@@ -54,7 +54,7 @@ public class SentenceDetectorFactoryTest {
   }
 
   private static SentenceModel train(SentenceDetectorFactory factory)
-      throws IOException {
+      throws IOException, InterruptedException  {
     return SentenceDetectorME.train("en", createSampleStream(), factory,
         TrainingParameters.defaultParams());
   }
@@ -67,7 +67,7 @@ public class SentenceDetectorFactoryTest {
   }
 
   @Test
-  public void testDefault() throws IOException {
+  public void testDefault() throws IOException, InterruptedException  {
 
     Dictionary dic = loadAbbDictionary();
 
@@ -93,7 +93,7 @@ public class SentenceDetectorFactoryTest {
   }
 
   @Test
-  public void testNullDict() throws IOException {
+  public void testNullDict() throws IOException, InterruptedException  {
     Dictionary dic = null;
 
     char[] eos = {'.', '?'};
@@ -120,7 +120,7 @@ public class SentenceDetectorFactoryTest {
   }
 
   @Test
-  public void testDefaultEOS() throws IOException {
+  public void testDefaultEOS() throws IOException, InterruptedException  {
     Dictionary dic = null;
 
     char[] eos = null;
@@ -149,7 +149,7 @@ public class SentenceDetectorFactoryTest {
   }
 
   @Test
-  public void testDummyFactory() throws IOException {
+  public void testDummyFactory() throws IOException, InterruptedException  {
 
     Dictionary dic = loadAbbDictionary();
 
