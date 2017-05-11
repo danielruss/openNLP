@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import opennlp.tools.cmdline.AbstractTrainerTool;
 import opennlp.tools.cmdline.CmdLineUtil;
+import opennlp.tools.cmdline.TerminateToolException;
 import opennlp.tools.cmdline.doccat.DoccatTrainerTool.TrainerToolParams;
 import opennlp.tools.cmdline.params.TrainingToolParams;
 import opennlp.tools.doccat.BagOfWordsFeatureGenerator;
@@ -73,7 +74,10 @@ public class DoccatTrainerTool
           mlParams, factory);
     } catch (IOException e) {
       throw createTerminationIOException(e);
+    } catch (InterruptedException e){
+      throw new TerminateToolException(-1, "User Interrupted");
     }
+
     finally {
       try {
         sampleStream.close();

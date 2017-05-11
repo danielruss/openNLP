@@ -61,7 +61,7 @@ public class POSTaggerFactoryTest {
   }
 
   private static POSModel trainPOSModel(ModelType type, POSTaggerFactory factory)
-      throws IOException {
+      throws IOException, InterruptedException {
     return POSTaggerME.train("en", createSampleStream(),
         TrainingParameters.defaultParams(), factory);
   }

@@ -34,6 +34,8 @@ public interface EventTrainer {
   void init(Map<String, String> trainParams, Map<String, String> reportMap);
   void init(TrainingParameters trainingParams, Map<String, String> reportMap);
 
-  MaxentModel train(ObjectStream<Event> events) throws IOException;
-  MaxentModel train(DataIndexer indexer) throws IOException;
+  MaxentModel train(ObjectStream<Event> events) throws IOException,InterruptedException;
+  MaxentModel train(DataIndexer indexer) throws IOException,InterruptedException;
+  
+  void interrupt();
 }

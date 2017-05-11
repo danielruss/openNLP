@@ -63,7 +63,7 @@ public class DoccatCrossValidator {
    * @throws IOException
    */
   public void evaluate(ObjectStream<DocumentSample> samples, int nFolds)
-      throws IOException {
+      throws IOException,InterruptedException {
 
     CrossValidationPartitioner<DocumentSample> partitioner = new CrossValidationPartitioner<>(
         samples, nFolds);

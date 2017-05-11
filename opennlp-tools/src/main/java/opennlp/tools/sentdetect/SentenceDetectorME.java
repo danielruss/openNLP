@@ -304,7 +304,7 @@ public class SentenceDetectorME implements SentenceDetector {
    */
   public static SentenceModel train(String languageCode,
       ObjectStream<SentenceSample> samples, boolean useTokenEnd,
-      Dictionary abbreviations, TrainingParameters mlParams) throws IOException {
+      Dictionary abbreviations, TrainingParameters mlParams) throws IOException, InterruptedException  {
     SentenceDetectorFactory sdFactory = new SentenceDetectorFactory(
         languageCode, useTokenEnd, abbreviations, null);
     return train(languageCode, samples, sdFactory, mlParams);
@@ -312,7 +312,7 @@ public class SentenceDetectorME implements SentenceDetector {
 
   public static SentenceModel train(String languageCode,
       ObjectStream<SentenceSample> samples, SentenceDetectorFactory sdFactory,
-      TrainingParameters mlParams) throws IOException {
+      TrainingParameters mlParams) throws IOException, InterruptedException  {
 
     Map<String, String> manifestInfoEntries = new HashMap<>();
 
@@ -334,7 +334,7 @@ public class SentenceDetectorME implements SentenceDetector {
    */
   @Deprecated
   public static SentenceModel train(String languageCode, ObjectStream<SentenceSample> samples,
-      boolean useTokenEnd, Dictionary abbreviations) throws IOException {
+      boolean useTokenEnd, Dictionary abbreviations) throws IOException, InterruptedException  {
     return train(languageCode, samples, useTokenEnd, abbreviations,
         ModelUtil.createDefaultTrainingParameters());
   }

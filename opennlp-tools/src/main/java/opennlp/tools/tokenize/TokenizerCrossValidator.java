@@ -49,7 +49,7 @@ public class TokenizerCrossValidator {
    *
    * @throws IOException
    */
-  public void evaluate(ObjectStream<TokenSample> samples, int nFolds) throws IOException {
+  public void evaluate(ObjectStream<TokenSample> samples, int nFolds) throws IOException, InterruptedException {
 
     CrossValidationPartitioner<TokenSample> partitioner =
         new CrossValidationPartitioner<>(samples, nFolds);

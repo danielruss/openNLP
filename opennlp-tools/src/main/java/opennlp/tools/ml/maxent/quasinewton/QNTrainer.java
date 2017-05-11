@@ -214,6 +214,11 @@ public class QNTrainer extends AbstractEventTrainer {
     return new QNModel(params, predLabels, outcomeNames);
   }
 
+  @Override
+  public void interrupt() {
+    // TODO Handle interrupt 
+  }
+  
   /**
    * For measuring model's training accuracy
    */

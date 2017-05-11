@@ -148,7 +148,7 @@ public class DocumentCategorizerME implements DocumentCategorizer {
 
   public static DoccatModel train(String languageCode, ObjectStream<DocumentSample> samples,
       TrainingParameters mlParams, DoccatFactory factory)
-          throws IOException {
+          throws IOException,InterruptedException {
 
     Map<String, String> manifestInfoEntries = new HashMap<>();
 

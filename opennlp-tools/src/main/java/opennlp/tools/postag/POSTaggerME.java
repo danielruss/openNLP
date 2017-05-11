@@ -223,7 +223,7 @@ public class POSTaggerME implements POSTagger {
 
   public static POSModel train(String languageCode,
       ObjectStream<POSSample> samples, TrainingParameters trainParams,
-      POSTaggerFactory posFactory) throws IOException {
+      POSTaggerFactory posFactory) throws IOException, InterruptedException {
 
     int beamSize = trainParams.getIntParameter(BeamSearch.BEAM_SIZE_PARAMETER, POSTaggerME.DEFAULT_BEAM_SIZE);
 

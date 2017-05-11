@@ -27,6 +27,7 @@ import opennlp.tools.chunker.ChunkerEvaluationMonitor;
 import opennlp.tools.chunker.ChunkerFactory;
 import opennlp.tools.cmdline.AbstractCrossValidatorTool;
 import opennlp.tools.cmdline.CmdLineUtil;
+import opennlp.tools.cmdline.TerminateToolException;
 import opennlp.tools.cmdline.chunker.ChunkerCrossValidatorTool.CVToolParams;
 import opennlp.tools.cmdline.params.CVParams;
 import opennlp.tools.cmdline.params.DetailedFMeasureEvaluatorParams;
@@ -79,6 +80,9 @@ public final class ChunkerCrossValidatorTool
     }
     catch (IOException e) {
       throw createTerminationIOException(e);
+    }
+    catch (InterruptedException e){
+      throw new TerminateToolException(-1, "User Interrupted");
     }
     finally {
       try {

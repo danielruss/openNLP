@@ -233,7 +233,7 @@ public class TokenizerME extends AbstractTokenizer {
    *           fails.
    */
   public static TokenizerModel train(ObjectStream<TokenSample> samples, TokenizerFactory factory,
-      TrainingParameters mlParams) throws IOException {
+      TrainingParameters mlParams) throws IOException,InterruptedException {
 
     Map<String, String> manifestInfoEntries = new HashMap<>();
 

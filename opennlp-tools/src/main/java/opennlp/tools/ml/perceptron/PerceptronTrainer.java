@@ -426,4 +426,8 @@ public class PerceptronTrainer extends AbstractEventTrainer {
     return root * root == n;
   }
 
+  @Override
+  public void interrupt() {
+    // TODO handle interrupt    
+  }
 }

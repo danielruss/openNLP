@@ -269,7 +269,7 @@ public class Parser extends AbstractBottomUpParser {
 
   public static ParserModel train(String languageCode, ObjectStream<Parse> parseSamples,
                                   HeadRules rules, TrainingParameters mlParams)
-          throws IOException {
+          throws IOException, InterruptedException {
 
     System.err.println("Building dictionary");
 

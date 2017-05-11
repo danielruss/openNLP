@@ -45,7 +45,7 @@ abstract class ModelUpdaterTool
 
   protected abstract ParserModel trainAndUpdate(ParserModel originalModel,
       ObjectStream<Parse> parseSamples, ModelUpdaterParams parameters)
-      throws IOException;
+      throws IOException,InterruptedException;
 
   public final void run(String format, String[] args) {
     ModelUpdaterParams params = validateAndParseParams(
@@ -67,6 +67,9 @@ abstract class ModelUpdaterTool
     catch (IOException e) {
       throw new TerminateToolException(-1, "IO error while reading training data or indexing data: "
           + e.getMessage(), e);
+    }
+    catch (InterruptedException e) {
+      throw new TerminateToolException(-1,"User interrupted");
     }
     finally {
       try {

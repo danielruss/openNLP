@@ -208,4 +208,9 @@ public class NaiveBayesTrainer extends AbstractEventTrainer {
         max = i;
     return max;
   }
+  
+  @Override
+  public void interrupt() {
+    // TODO write code...
+  }
 }

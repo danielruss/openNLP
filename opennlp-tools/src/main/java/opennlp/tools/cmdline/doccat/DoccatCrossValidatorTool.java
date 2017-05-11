@@ -96,6 +96,8 @@ public final class DoccatCrossValidatorTool extends
     } catch (IOException e) {
       throw new TerminateToolException(-1,
           "IO error while reading training data or indexing data: " + e.getMessage(), e);
+    } catch (InterruptedException e){
+      throw new TerminateToolException(-1, "User Interrupted");
     } finally {
       try {
         sampleStream.close();

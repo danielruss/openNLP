@@ -26,6 +26,7 @@ import opennlp.tools.chunker.ChunkerME;
 import opennlp.tools.chunker.ChunkerModel;
 import opennlp.tools.cmdline.AbstractTrainerTool;
 import opennlp.tools.cmdline.CmdLineUtil;
+import opennlp.tools.cmdline.TerminateToolException;
 import opennlp.tools.cmdline.chunker.ChunkerTrainerTool.TrainerToolParams;
 import opennlp.tools.cmdline.params.TrainingToolParams;
 import opennlp.tools.util.model.ModelUtil;
@@ -67,6 +68,8 @@ public class ChunkerTrainerTool
           chunkerFactory);
     } catch (IOException e) {
       throw createTerminationIOException(e);
+    } catch (InterruptedException e) {
+      throw new TerminateToolException(-1, "User Interrupted");
     }
     finally {
       try {

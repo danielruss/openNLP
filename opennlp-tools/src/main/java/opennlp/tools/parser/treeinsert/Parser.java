@@ -443,7 +443,7 @@ public class Parser extends AbstractBottomUpParser {
 
   public static ParserModel train(String languageCode,
       ObjectStream<Parse> parseSamples, HeadRules rules, TrainingParameters mlParams)
-      throws IOException {
+      throws IOException, InterruptedException  {
 
     Map<String, String> manifestInfoEntries = new HashMap<>();
 
@@ -511,7 +511,7 @@ public class Parser extends AbstractBottomUpParser {
 
   public static ParserModel train(String languageCode,
       ObjectStream<Parse> parseSamples, HeadRules rules, int iterations, int cut)
-      throws IOException {
+      throws IOException, InterruptedException  {
 
     TrainingParameters params = new TrainingParameters();
     params.put("dict", TrainingParameters.CUTOFF_PARAM, cut);

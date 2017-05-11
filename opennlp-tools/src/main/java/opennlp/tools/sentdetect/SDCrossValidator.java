@@ -90,7 +90,7 @@ public class SDCrossValidator {
    *
    * @throws IOException
    */
-  public void evaluate(ObjectStream<SentenceSample> samples, int nFolds) throws IOException {
+  public void evaluate(ObjectStream<SentenceSample> samples, int nFolds) throws IOException, InterruptedException  {
 
     CrossValidationPartitioner<SentenceSample> partitioner =
         new CrossValidationPartitioner<>(samples, nFolds);

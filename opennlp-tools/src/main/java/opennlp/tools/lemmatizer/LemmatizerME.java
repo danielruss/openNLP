@@ -200,7 +200,7 @@ public class LemmatizerME implements Lemmatizer {
 
   public static LemmatizerModel train(String languageCode,
       ObjectStream<LemmaSample> samples, TrainingParameters trainParams,
-      LemmatizerFactory posFactory) throws IOException {
+      LemmatizerFactory posFactory) throws IOException, InterruptedException {
 
     int beamSize = trainParams.getIntParameter(BeamSearch.BEAM_SIZE_PARAMETER,
             LemmatizerME.DEFAULT_BEAM_SIZE);

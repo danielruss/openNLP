@@ -18,7 +18,9 @@
 package opennlp.tools.ml.maxent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
@@ -26,6 +28,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import opennlp.tools.ml.AbstractEventTrainer;
 import opennlp.tools.ml.model.AbstractModel;
@@ -136,6 +139,11 @@ public class GISTrainer extends AbstractEventTrainer {
    */
   private EvalParameters evalParams;
 
+  /**
+   * Was the training interrupted.
+   */
+  private boolean interrupted = false;
+
   public static final String MAXENT_VALUE = "MAXENT";
 
   /**
@@ -162,7 +170,7 @@ public class GISTrainer extends AbstractEventTrainer {
   }
 
   @Override
-  public MaxentModel doTrain(DataIndexer indexer) throws IOException {
+  public MaxentModel doTrain(DataIndexer indexer) throws IOException,InterruptedException {
     int iterations = getIterations();
 
     AbstractModel model;
@@ -229,7 +237,7 @@ public class GISTrainer extends AbstractEventTrainer {
    * @return The newly trained model, which can be used immediately or saved to
    *         disk using an opennlp.tools.ml.maxent.io.GISModelWriter object.
    */
-  public GISModel trainModel(ObjectStream<Event> eventStream) throws IOException {
+  public GISModel trainModel(ObjectStream<Event> eventStream) throws IOException,InterruptedException {
     return trainModel(eventStream, 100, 0);
   }
 
@@ -243,7 +251,7 @@ public class GISTrainer extends AbstractEventTrainer {
    * @return A GIS model trained with specified
    */
   public GISModel trainModel(ObjectStream<Event> eventStream, int iterations,
-                             int cutoff) throws IOException {
+                             int cutoff) throws IOException,InterruptedException {
     DataIndexer indexer = new OnePassDataIndexer();
     TrainingParameters indexingParameters = new TrainingParameters();
     indexingParameters.put(GISTrainer.CUTOFF_PARAM, cutoff);
@@ -262,7 +270,7 @@ public class GISTrainer extends AbstractEventTrainer {
    * @return The newly trained model, which can be used immediately or saved
    * to disk using an opennlp.tools.ml.maxent.io.GISModelWriter object.
    */
-  public GISModel trainModel(int iterations, DataIndexer di) {
+  public GISModel trainModel(int iterations, DataIndexer di) throws InterruptedException{
     return trainModel(iterations, di, new UniformPrior(), 1);
   }
 
@@ -275,7 +283,7 @@ public class GISTrainer extends AbstractEventTrainer {
    * @return The newly trained model, which can be used immediately or saved
    * to disk using an opennlp.tools.ml.maxent.io.GISModelWriter object.
    */
-  public GISModel trainModel(int iterations, DataIndexer di, int threads) {
+  public GISModel trainModel(int iterations, DataIndexer di, int threads) throws InterruptedException{
     return trainModel(iterations, di, new UniformPrior(), threads);
   }
 
@@ -288,7 +296,7 @@ public class GISTrainer extends AbstractEventTrainer {
    * @return The newly trained model, which can be used immediately or saved
    * to disk using an opennlp.tools.ml.maxent.io.GISModelWriter object.
    */
-  public GISModel trainModel(int iterations, DataIndexer di, Prior modelPrior, int threads) {
+  public GISModel trainModel(int iterations, DataIndexer di, Prior modelPrior, int threads) throws InterruptedException{
 
     if (threads <= 0) {
       throw new IllegalArgumentException("threads must be at least one or greater but is " + threads + "!");
@@ -435,8 +443,11 @@ public class GISTrainer extends AbstractEventTrainer {
 
   }
 
+  
+  List<Future<ModelExpectationComputeTask>> futureList = new ArrayList<>();
+
   /* Estimate and return the model parameters. */
-  private void findParameters(int iterations, double correctionConstant) {
+  private void findParameters(int iterations, double correctionConstant) throws InterruptedException{
     int threads = modelExpects.length;
     ExecutorService executor = Executors.newFixedThreadPool(threads);
     CompletionService<ModelExpectationComputeTask> completionService =
@@ -452,7 +463,13 @@ public class GISTrainer extends AbstractEventTrainer {
       } else {
         display(i + ":  ");
       }
+
+      // before we calculate the next iteration, check if we were interrupted...
+      // if we are interrupted in the nextIteration() method,
+      // an InterruptedException would be thrown there..
+      if (interrupted) throw new InterruptedException();
       currLL = nextIteration(correctionConstant, completionService);
+      
       if (i > 1) {
         if (prevLL > currLL) {
           System.err.println("Model Diverging: loglikelihood decreased");
@@ -470,6 +487,7 @@ public class GISTrainer extends AbstractEventTrainer {
     modelExpects = null;
     numTimesEventsSeen = null;
     contexts = null;
+
     executor.shutdown();
   }
 
@@ -498,7 +516,7 @@ public class GISTrainer extends AbstractEventTrainer {
 
   /* Compute one iteration of GIS and retutn log-likelihood.*/
   private double nextIteration(double correctionConstant,
-                               CompletionService<ModelExpectationComputeTask> completionService) {
+                               CompletionService<ModelExpectationComputeTask> completionService) throws InterruptedException{
     // compute contribution of p(a|b_i) for each feature and the new
     // correction parameter
     double loglikelihood = 0.0;
@@ -512,14 +530,18 @@ public class GISTrainer extends AbstractEventTrainer {
     int taskSize = numUniqueEvents / numberOfThreads;
     int leftOver = numUniqueEvents % numberOfThreads;
 
+    // one last check that we were not interrupted before threads are created
+    if (interrupted) throw new InterruptedException();
+    
+    // if we are interrupted right now we have to wait until the iteration is completed..
     // submit all tasks to the completion service.
     for (int i = 0; i < numberOfThreads; i++) {
       if (i < leftOver) {
-        completionService.submit(new ModelExpectationComputeTask(i, i * taskSize + i,
-            taskSize + 1));
+        futureList.add( completionService.submit(new ModelExpectationComputeTask(i, i * taskSize + i,
+            taskSize + 1)) );
       } else {
-        completionService.submit(new ModelExpectationComputeTask(i,
-            i * taskSize + leftOver, taskSize));
+        futureList.add( completionService.submit(new ModelExpectationComputeTask(i,
+            i * taskSize + leftOver, taskSize)) );
       }
     }
 
@@ -527,12 +549,8 @@ public class GISTrainer extends AbstractEventTrainer {
       ModelExpectationComputeTask finishedTask;
       try {
         finishedTask = completionService.take().get();
-      } catch (InterruptedException e) {
-        // TODO: We got interrupted, but that is currently not really supported!
-        // For now we just print the exception and fail hard. We hopefully soon
-        // handle this case properly!
-        e.printStackTrace();
-        throw new IllegalStateException("Interruption is not supported!", e);
+        // If an InterruptedException occurs the model is corrupted
+        // throw the Interrupted exception to the client.
       } catch (ExecutionException e) {
         // Only runtime exception can be thrown during training, if one was thrown
         // it should be re-thrown. That could for example be a NullPointerException
@@ -590,6 +608,13 @@ public class GISTrainer extends AbstractEventTrainer {
     return loglikelihood;
   }
 
+  public void interrupt(){
+    interrupted=true;
+    for (Future<ModelExpectationComputeTask> future:futureList){
+      future.cancel(true);
+    }  
+  }
+  
   protected void display(String s) {
     if (printMessages) {
       System.out.print(s);

@@ -69,9 +69,9 @@ public abstract class AbstractEventTrainer extends AbstractTrainer implements Ev
     return indexer;
   }
 
-  public abstract MaxentModel doTrain(DataIndexer indexer) throws IOException;
+  public abstract MaxentModel doTrain(DataIndexer indexer) throws IOException,InterruptedException;
 
-  public final MaxentModel train(DataIndexer indexer) throws IOException {
+  public final MaxentModel train(DataIndexer indexer) throws IOException,InterruptedException {
     validate();
 
     if (indexer.getOutcomeLabels().length <= 1) {
@@ -83,7 +83,7 @@ public abstract class AbstractEventTrainer extends AbstractTrainer implements Ev
     return model;
   }
 
-  public final MaxentModel train(ObjectStream<Event> events) throws IOException {
+  public final MaxentModel train(ObjectStream<Event> events) throws IOException,InterruptedException {
     validate();
 
     HashSumEventStream hses = new HashSumEventStream(events);

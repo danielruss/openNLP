@@ -142,6 +142,8 @@ public final class TokenNameFinderCrossValidatorTool
       validator.evaluate(sampleStream, params.getFolds());
     } catch (IOException e) {
       throw createTerminationIOException(e);
+    } catch (InterruptedException e){
+      throw new TerminateToolException(-1, "User Aborted");
     } finally {
       try {
         sampleStream.close();

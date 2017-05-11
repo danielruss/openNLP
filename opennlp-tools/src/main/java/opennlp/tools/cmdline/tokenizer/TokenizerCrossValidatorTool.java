@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import opennlp.tools.cmdline.AbstractCrossValidatorTool;
 import opennlp.tools.cmdline.CmdLineUtil;
+import opennlp.tools.cmdline.TerminateToolException;
 import opennlp.tools.cmdline.params.CVParams;
 import opennlp.tools.cmdline.tokenizer.TokenizerCrossValidatorTool.CVToolParams;
 import opennlp.tools.dictionary.Dictionary;
@@ -73,6 +74,9 @@ public final class TokenizerCrossValidatorTool
     }
     catch (IOException e) {
       throw createTerminationIOException(e);
+    }
+    catch (InterruptedException e){
+      throw new TerminateToolException(-1,"User Aborted");
     }
     finally {
       try {

@@ -127,8 +127,9 @@ public final class POSTaggerTrainerTool
     }
     catch (IOException e) {
       throw createTerminationIOException(e);
-    }
-    finally {
+    } catch (InterruptedException e){
+      throw new TerminateToolException(-1,"User Aborted");
+    } finally {
       try {
         sampleStream.close();
       } catch (IOException e) {

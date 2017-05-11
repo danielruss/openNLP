@@ -94,6 +94,8 @@ public final class SentenceDetectorTrainerTool
           sdFactory, mlParams);
     } catch (IOException e) {
       throw createTerminationIOException(e);
+    } catch (InterruptedException e){
+      throw new TerminateToolException(-1, "User Aborted");
     }
     finally {
       try {

@@ -52,7 +52,7 @@ public class ChunkerCrossValidator {
    * @throws IOException
    */
   public void evaluate(ObjectStream<ChunkSample> samples, int nFolds)
-      throws IOException {
+      throws IOException,InterruptedException {
     CrossValidationPartitioner<ChunkSample> partitioner = new CrossValidationPartitioner<>(
         samples, nFolds);
 

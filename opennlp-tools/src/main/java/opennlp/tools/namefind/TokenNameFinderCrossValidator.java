@@ -201,7 +201,7 @@ public class TokenNameFinderCrossValidator {
    * @throws IOException
    */
   public void evaluate(ObjectStream<NameSample> samples, int nFolds)
-      throws IOException {
+      throws IOException, InterruptedException  {
 
     // Note: The name samples need to be grouped on a document basis.
 

@@ -165,7 +165,7 @@ public class ChunkerME implements Chunker {
   }
 
   public static ChunkerModel train(String lang, ObjectStream<ChunkSample> in,
-      TrainingParameters mlParams, ChunkerFactory factory) throws IOException {
+      TrainingParameters mlParams, ChunkerFactory factory) throws IOException,InterruptedException {
 
     int beamSize = mlParams.getIntParameter(BeamSearch.BEAM_SIZE_PARAMETER, ChunkerME.DEFAULT_BEAM_SIZE);
 

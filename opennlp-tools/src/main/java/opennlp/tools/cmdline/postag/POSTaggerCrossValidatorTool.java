@@ -98,7 +98,10 @@ public final class POSTaggerCrossValidatorTool
     } catch (IOException e) {
       throw new TerminateToolException(-1, "IO error while reading training data or indexing data: "
           + e.getMessage(), e);
+    } catch (InterruptedException e){
+      throw new TerminateToolException(-1, "User aborted");
     } finally {
+    
       try {
         sampleStream.close();
       } catch (IOException e) {

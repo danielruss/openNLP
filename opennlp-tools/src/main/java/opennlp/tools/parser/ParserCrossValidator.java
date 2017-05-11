@@ -46,7 +46,7 @@ public class ParserCrossValidator {
     this.parserType = parserType;
   }
 
-  public void evaluate(ObjectStream<Parse> samples, int nFolds) throws IOException {
+  public void evaluate(ObjectStream<Parse> samples, int nFolds) throws IOException, InterruptedException  {
 
     CrossValidationPartitioner<Parse> partitioner = new CrossValidationPartitioner<>(samples, nFolds);
 

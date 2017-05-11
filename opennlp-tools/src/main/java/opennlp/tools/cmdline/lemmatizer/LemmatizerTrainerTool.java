@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import opennlp.tools.cmdline.AbstractTrainerTool;
 import opennlp.tools.cmdline.CmdLineUtil;
+import opennlp.tools.cmdline.TerminateToolException;
 import opennlp.tools.cmdline.lemmatizer.LemmatizerTrainerTool.TrainerToolParams;
 import opennlp.tools.cmdline.params.TrainingToolParams;
 import opennlp.tools.lemmatizer.LemmaSample;
@@ -67,6 +68,8 @@ public class LemmatizerTrainerTool
           lemmatizerFactory);
     } catch (IOException e) {
       throw createTerminationIOException(e);
+    } catch (InterruptedException e){
+      throw new TerminateToolException(-1, "User Interrupted");
     } finally {
       try {
         sampleStream.close();
