@@ -7,20 +7,24 @@ import java.util.Arrays;
  */
 public class NonUniformPrior implements Prior{
 
-  double[] logPriorDistribution;
+  private double[] logPriorDistribution;
+ 
+  public NonUniformPrior(double[] prior) throws InvalidDistributionException {
+    this(prior, 0.00001);
+  }
 
-  public NonUniformPrior(double[] prior) throws InvalidDistributionException{
+  public NonUniformPrior(double[] prior, double delta) throws InvalidDistributionException {
     this.logPriorDistribution  = new double[prior.length];
     int norm=0;
     for (int i=0;i<prior.length;i++) {
-      if (prior[i]>1.000001 || prior[i]<0) {
+      if (prior[i]>(1+delta) || prior[i]<0) {
         throw new InvalidDistributionException("index "+i+" of the prior distribution is invalid: \n"+Arrays.toString(prior));
       }
       norm+=prior[i];
-      if (norm>1.000001) {
+      if (Math.abs(1-norm)>delta) {
         throw new InvalidDistributionException("prior distribution is not normalized (sum="+norm+")\n"+Arrays.toString(prior));
       }
-      logPriorDistribution[i] = Math.log(i);
+      logPriorDistribution[i] = Math.log(prior[i]);;
     }
   }
 
