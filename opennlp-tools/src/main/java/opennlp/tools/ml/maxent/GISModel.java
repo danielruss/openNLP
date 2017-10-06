@@ -89,6 +89,22 @@ public final class GISModel extends AbstractModel {
   }
 
   /**
+   * Allows the User to reset the prior used by the model.  Useful
+   * for event-by-event prior.
+   * 
+   * @param prior
+   *        The assigned prior used by the model.  It is 
+   *        recommended that the prior not be created for each
+   *        event, but the object gets reused and reset between
+   *        events.
+   *        
+   * @see opennlp.tools.ml.model.NonUniformPrior
+   */
+  public final void setPrior(Prior prior) {
+    this.prior = prior;
+  }
+  
+  /**
    * Use this model to evaluate a context and return an array of the likelihood
    * of each outcome given that context.
    *
