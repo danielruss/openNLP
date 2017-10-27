@@ -68,7 +68,7 @@ public abstract class BaseModel implements ArtifactProvider, Serializable {
 
   private static String SERIALIZER_CLASS_NAME_PREFIX = "serializer-class-";
 
-  private Map<String, ArtifactSerializer> artifactSerializers = new HashMap<>();
+  private Map<String, ArtifactSerializer<?>> artifactSerializers = new HashMap<>();
 
   protected Map<String, Object> artifactMap = new HashMap<>();
 
@@ -223,7 +223,7 @@ public abstract class BaseModel implements ArtifactProvider, Serializable {
 
       if ("manifest.properties".equals(entry.getName())) {
         // TODO: Probably better to use the serializer here directly!
-        ArtifactSerializer factory = artifactSerializers.get("properties");
+        ArtifactSerializer<?> factory = artifactSerializers.get("properties");
         artifactMap.put(entry.getName(), factory.create(zip));
         isSearchingForManifest = false;
       }
@@ -299,7 +299,7 @@ public abstract class BaseModel implements ArtifactProvider, Serializable {
       String entryName = entry.getName();
       String extension = getEntryExtension(entryName);
 
-      ArtifactSerializer factory = artifactSerializers.get(extension);
+      ArtifactSerializer<?> factory = artifactSerializers.get(extension);
 
       String artifactSerializerClazzName =
           getManifestProperty(SERIALIZER_CLASS_NAME_PREFIX + entryName);
@@ -340,7 +340,7 @@ public abstract class BaseModel implements ArtifactProvider, Serializable {
     return entry.substring(extensionIndex);
   }
 
-  protected ArtifactSerializer getArtifactSerializer(String resourceName) {
+  protected ArtifactSerializer<?> getArtifactSerializer(String resourceName) {
     try {
       return artifactSerializers.get(getEntryExtension(resourceName));
     } catch (InvalidFormatException e) {
@@ -348,8 +348,8 @@ public abstract class BaseModel implements ArtifactProvider, Serializable {
     }
   }
 
-  protected static Map<String, ArtifactSerializer> createArtifactSerializers() {
-    Map<String, ArtifactSerializer> serializers = new HashMap<>();
+  protected static Map<String, ArtifactSerializer<?>> createArtifactSerializers() {
+    Map<String, ArtifactSerializer<?>> serializers = new HashMap<>();
 
     GenericModelSerializer.register(serializers);
     PropertiesSerializer.register(serializers);
@@ -377,13 +377,13 @@ public abstract class BaseModel implements ArtifactProvider, Serializable {
    *     the {@link ArtifactSerializer}.
    */
   protected void createArtifactSerializers(
-      Map<String, ArtifactSerializer> serializers) {
+      Map<String, ArtifactSerializer<?>> serializers) {
     if (this.toolFactory != null)
       serializers.putAll(this.toolFactory.createArtifactSerializersMap());
   }
 
   private void createBaseArtifactSerializers(
-      Map<String, ArtifactSerializer> serializers) {
+      Map<String, ArtifactSerializer<?>> serializers) {
     serializers.putAll(createArtifactSerializers());
   }
 
@@ -548,7 +548,7 @@ public abstract class BaseModel implements ArtifactProvider, Serializable {
    * @throws IOException
    */
   @SuppressWarnings("unchecked")
-  public final void serialize(OutputStream out) throws IOException {
+  public final <T> void serialize(OutputStream out) throws IOException {
     if (!subclassSerializersInitiated) {
       throw new IllegalStateException(
           "The method BaseModel.loadArtifactSerializers() was not called by BaseModel subclass constructor.");
@@ -577,7 +577,7 @@ public abstract class BaseModel implements ArtifactProvider, Serializable {
 
       Object artifact = entry.getValue();
 
-      ArtifactSerializer serializer = getArtifactSerializer(name);
+      ArtifactSerializer<T> serializer = (ArtifactSerializer<T>)getArtifactSerializer(name);
 
       // If model is serialize-able always use the provided serializer
       if (artifact instanceof SerializableArtifact) {
@@ -594,7 +594,7 @@ public abstract class BaseModel implements ArtifactProvider, Serializable {
         throw new IllegalStateException("Missing serializer for " + name);
       }
 
-      serializer.serialize(artifactMap.get(name), zip);
+      serializer.serialize((T)artifactMap.get(name), zip);
 
       zip.closeEntry();
     }

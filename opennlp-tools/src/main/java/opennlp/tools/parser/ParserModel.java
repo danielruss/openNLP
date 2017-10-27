@@ -144,7 +144,7 @@ public class ParserModel extends BaseModel {
 
   @Override
   protected void createArtifactSerializers(
-      Map<String, ArtifactSerializer> serializers) {
+      Map<String, ArtifactSerializer<?>> serializers) {
 
     super.createArtifactSerializers(serializers);
 

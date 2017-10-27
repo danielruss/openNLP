@@ -164,7 +164,7 @@ public final class POSModel extends BaseModel implements SerializableArtifact {
   }
 
   @Override
-  protected void createArtifactSerializers(Map<String, ArtifactSerializer> serializers) {
+  protected void createArtifactSerializers(Map<String, ArtifactSerializer<?>> serializers) {
     super.createArtifactSerializers(serializers);
 
     serializers.put("featuregen", new ByteArraySerializer());

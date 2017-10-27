@@ -36,7 +36,7 @@ public class GenericModelSerializer implements ArtifactSerializer<AbstractModel>
     ModelUtil.writeModel(artifact, out);
   }
 
-  public static void register(Map<String, ArtifactSerializer> factories) {
+  public static void register(Map<String, ArtifactSerializer<?>> factories) {
     factories.put("model", new GenericModelSerializer());
   }
 }
